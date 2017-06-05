@@ -39,7 +39,7 @@ class ProductTest < ActiveSupport::TestCase
   
   test "image url" do
     ok = %w{ fred.gif fred.jpg fred.png FRED.JPG FRED.Jpg http://a.b.c/x/y/z/fred.gif }
-    bad = %w{fred.doc, fred.gif/more fred.gif.more }
+    bad = %w{fred.doc fred.gif/more fred.gif.more }
     
     ok.each do |name|
       assert new_product(name).valid?, "#{name} shouldn't be invalid"
@@ -51,7 +51,7 @@ class ProductTest < ActiveSupport::TestCase
   end
   
   test "product is not valid without a unique title" do
-    product = Product.name(title: products(:ruby).title,
+    product = Product.new(title:products(:ruby).title,
     description: "yyy",
     price:  1,
     image_url: "fred.gif")
@@ -59,5 +59,23 @@ class ProductTest < ActiveSupport::TestCase
     assert product.invalid?
     assert_equal ["has already been taken"], product.errors[:title]
   end
-         
+  
+  def new_product_title(title)
+    Product.new(title: title,
+                description: "yyy",
+                price: 1,
+                image_url: "zzz.jpg")
+  end
+  
+  test "product title is at least ten characters" do
+   ok = %w{abcdefghijk 45thumble4}
+   bad = %w{abc 45thu}
+   ok.each do |name|
+     assert new_product_title(name).valid?, "#{name} shouldn't be invalid"
+   end
+   
+   bad.each do |name|
+     assert new_product_title(name).invalid?, "#{name} shouldn't be valid"
+   end
+ end
 end
