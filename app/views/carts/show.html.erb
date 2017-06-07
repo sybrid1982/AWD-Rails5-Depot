@@ -3,16 +3,11 @@
 <h2>Your Pragmatic Cart</h2>
   <table>
     <ul><% @cart.line_items.each do |item| %>
-<<<<<<< HEAD
       <tr>
         <td><%=item.quantity %> &times; </td>
         <td><%= item.product.title%></td>
         <td class="item_price"><%=number_to_currency(item.total_price)%></td>
       </tr>
-=======
-        <li><%= item.quantity %> &times;
-        <%= item.product.title%></li>
->>>>>>> 25cfaef3f3c1e51a31df47fb01b6c20bf039bef3
     <%end%>
     <tr class = "total_line">
       <td colspan="2">Total</td>
