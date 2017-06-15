@@ -2,11 +2,11 @@
 <html>
   <head>
     <title>Pragprog Books Online Store</title>
-    
+
 
     <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => 'reload' %>
     <%= javascript_include_tag "application", "data-turbolinks-track" => 'reload' %>
-    
+
     <%= csrf_meta_tags %>
   </head>
 
@@ -17,6 +17,13 @@
     </div>
     <div id="columns">
       <div id="side">
+        <div id="cart">
+          <% if @cart%>
+            <%=hidden_div_if(@cart.line_items.empty?, id: 'cart') do %>
+              <%=render @cart%>
+            <%end%>
+          <% end %>
+        </div>
         <ul>
           <li>Page loaded at: <%=Time.now%></li>
           <li><a href="http://www....">Home</a></li>
