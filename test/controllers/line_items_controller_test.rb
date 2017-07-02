@@ -58,4 +58,8 @@ class LineItemsControllerTest < ActionDispatch::IntegrationTest
       assert_select 'tr#current_item td', /Programming Ruby 1.9/
     end
   end
+
+  test "should decrease line_item" do
+    
+  end
 end

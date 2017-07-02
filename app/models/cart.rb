@@ -15,13 +15,13 @@ class Cart < ApplicationRecord
       line_items.to_a.sum{|item| item.total_price}
     end
 
-    def add_product(product)
-        current_item = line_items.find_by(product_id:product.id)
-        if current_item
-            current_item.quantity += 1
-        else
-            current_item = line_items.build(product_id:product.id)
-        end
-        current_item
+    def remove_product(product, quantity_to_remove)
+      current_item = line_items.find_by(product_id:product.id)
+      if current_item && current_item.quantity > quantity_to_remove
+          current_item.quantity -= quantity_to_remove
+      else
+          current_item.destroy
+      end
+      current_item
     end
 end

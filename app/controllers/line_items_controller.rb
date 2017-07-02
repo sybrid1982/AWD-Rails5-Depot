@@ -65,6 +65,15 @@ class LineItemsController < ApplicationController
     end
   end
 
+  def decrement
+    @line_item.decrement
+    respond_to do |format|
+      if @line_item.save
+        format.html {redirect_to store_index_url}
+      end
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_line_item
